@@ -13,16 +13,17 @@ const jumpHeight = 1000;
 const jumpDuration = 400;
 const jumpSound = document.getElementById('suonosalto');
 const coinSound = document.getElementById('suonomonetina');
-const popSound = new Audio('monster-death-grunt-131480.mp3');
 
+// Movimento del cubetto con animazione fluida
 function moveCubetto() {
   cubetto.style.left = `${posX}px`;
   cubetto.style.bottom = `${posY}px`;
   checkCollision();
 }
 
+// Funzione per far saltare il cubetto
 function jumpCubetto() {
-  if (isJumping) return;
+  if (isJumping) return;  // Impedisce di saltare durante il salto
   isJumping = true;
 
   jumpSound.play();
@@ -49,13 +50,12 @@ function jumpCubetto() {
   requestAnimationFrame(animateJump);
 }
 
+// Funzione per gestire la collisione con la monetina
 function checkCollision() {
   if (!monetina || monetina.style.display === 'none') return;
-  if (!monetina2 || monetina2.style.display === 'none') return;       
 
   const cubettoRect = cubetto.getBoundingClientRect();
   const monetinaRect = monetina.getBoundingClientRect();
-  const monetina2Rect = monetina2.getBoundingClientRect();
 
   const isColliding = !(
     cubettoRect.right < monetinaRect.left ||
@@ -64,31 +64,15 @@ function checkCollision() {
     cubettoRect.top > monetinaRect.bottom
   );
 
-
-   const isColliding2 = !(
-    cubettoRect.right < monetina2Rect.left ||
-    cubettoRect.left > monetina2Rect.right ||
-    cubettoRect.bottom < monetina2Rect.top ||
-    cubettoRect.top > monetina2Rect.bottom
-  );
-
-  if (isColliding2) {
-    monetina2.style.display = 'none';
+  if (isColliding) {
     coinSound.play();
     coinCount++;
     document.getElementById('coinCount').textContent = `Monetine raccolte: ${coinCount}`;
-  }
-
-  if (isColliding) {
-    monetina.style.display = 'none';
-    coinSound.play(); 
-    coinCount++; 
-    document.getElementById('coinCount').textContent = `Monetine raccolte: ${coinCount}`;
     console.log("💥 COLLISIONE con monetina!");
+    moveCoin(); // Muove la monetina dopo la collisione
   }
 
-
-
+  // Gestione degli ostacoli
   if (ostacolo) {
     const ostacoloRect = ostacolo.getBoundingClientRect();
     const hitsOstacolo = !(
@@ -100,12 +84,25 @@ function checkCollision() {
     if (hitsOstacolo) {
       console.log("💥 Sei morto!");
       alert("Game Over!");
-     
     }
   }
 }
 
+// Funzione per spostare la monetina casualmente sulla stessa altezza
+function moveCoin() {
+  const containerWidth = container.offsetWidth;
+  const containerHeight = container.offsetHeight;
 
+  // Manteniamo la stessa altezza della monetina (bottom) e spostiamo solo la posizione orizzontale (left)
+  const newPosX = Math.floor(Math.random() * (containerWidth - 175)); // 175 è la larghezza della monetina
+  const currentPosY = parseFloat(monetina.style.bottom) || 30; // Recupera la posizione verticale corrente (default è 30px)
+ 
+  // Applica la nuova posizione
+  monetina.style.left = `${newPosX}px`;
+  monetina.style.bottom = `${currentPosY}px`; // Mantieni la stessa altezza
+}
+
+// Gestione dei tasti premuti
 document.addEventListener('keydown', (event) => {
   const containerWidth = container.offsetWidth;
 
@@ -129,8 +126,6 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-
-
 let startTime = Date.now();
 let timerInterval = setInterval(updateTimer, 1000);
 
@@ -142,4 +137,4 @@ function updateTimer() {
 setInterval(() => {
   checkCollision();
 }, 30);
-
+  

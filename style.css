@@ -1,0 +1,123 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-image: url('snow.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-color: #ffffff;
+}
+
+#coinCount {
+  top: 60px;
+  left: 20px;
+  font-size: 24px;
+  color: black;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+  margin-left: 75px;
+  background-color: gold;
+  border-radius: 0px 20px 20px 0px;
+  width: 200px;
+  margin-left: 0px;
+  padding-left: 15px;
+  margin-top: 20px;
+
+}
+
+#ostacolo {
+  width: 40px;
+  height: 40px;
+  background-color: green;
+  position: absolute;
+  bottom: 100px;
+  left: 800px;
+  animation: moveOstacolo 4s infinit linear;
+}
+
+@keyframes moveOstacolo {
+  0% { left: 1200px; }
+  100% { left: 0px; }
+}
+
+#timer {
+  top: 60px;
+  left: 20px;
+  font-size: 24px;
+  color: black;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+  margin-left: 75px;
+  background-color: rgb(0, 213, 255); 
+  border-radius: 0px 20px 20px 0px;
+  width: 130px;
+  margin-left: 0px;
+  padding-left: 15px;
+  margin-top: 100px;
+}
+
+#container {
+  width: 100vw;
+  height: 100vh;
+  
+  overflow: hidden;
+}
+
+#cubetto {
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  transition: left 0.1s linear, bottom 0.3s ease-in-out;
+  will-change: bottom, left;
+  
+  
+}
+
+#monetina1 {
+  position: absolute;
+  margin-bottom: 80px;
+  bottom: 30px;
+  left: 600px;
+  width: 175px;
+  height: 175px;
+  background-image: url('monetina.jpg');
+  background-size: cover;
+  transform: scale(0.3);
+  transform-origin: top left;
+}
+
+#monetina2 {
+  position: absolute;
+  margin-bottom: 80px;
+  bottom: 30px;
+  left: 600px;
+  width: 175px;
+  height: 175px;
+  background-image: url('monetina.jpg');
+  background-size: cover;
+  transform: scale(0.3);
+  transform-origin: top left;
+  margin-left: 600px;
+}
+
+#pavimento {
+  width: 100%;
+  height: 100px;
+  background-color: #333;
+  background-image: url('O5NY920.jpg');
+  position: absolute;
+  bottom: 0;
+}
